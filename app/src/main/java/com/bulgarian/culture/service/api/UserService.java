@@ -1,9 +1,12 @@
 package com.bulgarian.culture.service.api;
 
 import com.bulgarian.culture.model.dto.UserBindingModel;
-import com.bulgarian.culture.model.enity.User;
+
+import java.util.List;
 
 public interface UserService {
 
-    User registerUser(UserBindingModel userBindingModel);
+    void registerUser(UserBindingModel userBindingModel);
+
+    List<String> getUsers();
 }

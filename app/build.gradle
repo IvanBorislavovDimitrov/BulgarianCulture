@@ -47,6 +47,4 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '1.1.1'
-    implementation group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.4.2.Final'
-
 }

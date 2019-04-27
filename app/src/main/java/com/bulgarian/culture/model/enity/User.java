@@ -3,7 +3,9 @@ package com.bulgarian.culture.model.enity;
 public class User extends IdEntity {
 
     private String username;
+
     private String email;
+
     private String password;
 
     protected User() {

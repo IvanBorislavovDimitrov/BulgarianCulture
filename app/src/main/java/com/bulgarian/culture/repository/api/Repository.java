@@ -4,8 +4,7 @@ import com.bulgarian.culture.model.enity.IdEntity;
 
 public interface Repository<T extends IdEntity> {
 
-    T save(T obj);
+    void save(T obj);
 
     T findById(String id);
-
 }
