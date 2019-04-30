@@ -25,7 +25,6 @@ public class RegisterActivity extends AppCompatActivity {
         initDependencies();
         registerUser();
         List<String> users = userService.getUsers();
-        String debug = "";
     }
 
     private void registerUser() {

@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface UserRepository extends Repository<User> {
 
-    List<String> getUsers();
+    List<String> findUserUsernames();
+
+    List<String> findUserEmails();
 }

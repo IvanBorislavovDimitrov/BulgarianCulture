@@ -25,7 +25,12 @@ public class DefaultUserRepository implements UserRepository {
     }
 
     @Override
-    public List<String> getUsers() {
-        return userTableHelper.getUsers();
+    public List<String> findUserUsernames() {
+        return userTableHelper.findUserUsernames();
+    }
+
+    @Override
+    public List<String> findUserEmails() {
+        return userTableHelper.findUserEmails();
     }
 }
