@@ -12,8 +12,6 @@ import com.bulgarian.culture.model.dto.UserBindingModel;
 import com.bulgarian.culture.service.api.UserService;
 import com.bulgarian.culture.service.impl.DefaultUserService;
 
-import java.util.List;
-
 public class RegisterActivity extends AppCompatActivity {
 
     private UserService userService;
@@ -24,18 +22,17 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         initDependencies();
         registerUser();
-        List<String> users = userService.getUsers();
     }
 
     private void registerUser() {
         findViewById(R.id.registerConfirm).setOnClickListener(listener -> {
-            TextView usernameTextView = findViewById(R.id.username);
+            TextView usernameTextView = findViewById(R.id.usernameRegister);
             String username = String.valueOf(usernameTextView.getText());
-            TextView emailTextView = findViewById(R.id.email);
+            TextView emailTextView = findViewById(R.id.emailRegister);
             String email = String.valueOf(emailTextView.getText());
-            TextView passwordTextView = findViewById(R.id.password);
+            TextView passwordTextView = findViewById(R.id.passwordRegister);
             String password = String.valueOf(passwordTextView.getText());
-            TextView confirmPasswordTextView = findViewById(R.id.confirmPassword);
+            TextView confirmPasswordTextView = findViewById(R.id.confirmPasswordRegister);
             String confirmPassword = String.valueOf(confirmPasswordTextView.getText());
             UserBindingModel userBindingModel = new UserBindingModel.Builder()
                     .username(username)
@@ -44,8 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
                     .confirmPassword(confirmPassword)
                     .build();
             userService.registerUser(userBindingModel);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, MainActivity.class));
         });
     }
 

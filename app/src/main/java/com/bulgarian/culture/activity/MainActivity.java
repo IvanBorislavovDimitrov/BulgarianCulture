@@ -15,10 +15,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button register = findViewById(R.id.register);
-        register.setOnClickListener(listener -> {
-            Intent registerActivity = new Intent(this, RegisterActivity.class);
-            startActivity(registerActivity);
-        });
+        Button registerButton = findViewById(R.id.register);
+        registerButton.setOnClickListener(listener -> startActivity(new Intent(this, RegisterActivity.class)));
+
+        Button loginButton = findViewById(R.id.login);
+        loginButton.setOnClickListener(listener -> startActivity(new Intent(this, LoginActivity.class)));
     }
 }
