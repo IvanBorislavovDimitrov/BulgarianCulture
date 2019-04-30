@@ -4,5 +4,7 @@ public class Constants {
 
     public static final String PERSISTENCE_UNIT = "bulgarian_culture_db";
 
-    public static final int DB_VERSION = 2;
+    public static final int DB_VERSION = 5;
+
+    public static final String USERNAME = "username";
 }

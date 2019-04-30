@@ -33,4 +33,14 @@ public class DefaultUserRepository implements UserRepository {
     public List<String> findUserEmails() {
         return userTableHelper.findUserEmails();
     }
+
+    @Override
+    public boolean userExistsByUsernameAndPassword(String username, String password) {
+        User user= userTableHelper.findUserByUsername(username);
+        if (user == null) {
+            return false;
+        }
+
+        return user.getPassword().equals(password);
+    }
 }

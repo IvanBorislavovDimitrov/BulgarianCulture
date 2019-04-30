@@ -9,4 +9,6 @@ public interface UserRepository extends Repository<User> {
     List<String> findUserUsernames();
 
     List<String> findUserEmails();
+
+    boolean userExistsByUsernameAndPassword(String username, String password);
 }

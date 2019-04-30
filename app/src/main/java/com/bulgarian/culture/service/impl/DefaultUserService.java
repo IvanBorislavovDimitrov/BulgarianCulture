@@ -39,5 +39,12 @@ public class DefaultUserService implements UserService {
         return userRepository.findUserUsernames();
     }
 
+    @Override
+    public boolean isValidUser(String usernameText, String passwordText) {
+       return userRepository.userExistsByUsernameAndPassword(usernameText,
+               new String(Hex.encodeHex(DigestUtils.sha256(passwordText))));
+
+    }
+
 
 }

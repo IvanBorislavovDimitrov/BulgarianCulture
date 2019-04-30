@@ -9,4 +9,6 @@ public interface UserService {
     void registerUser(UserBindingModel userBindingModel);
 
     List<String> getUsers();
+
+    boolean isValidUser(String usernameText, String passwordText);
 }
