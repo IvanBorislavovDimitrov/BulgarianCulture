@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bulgarian.culture.R;
@@ -17,6 +18,8 @@ import com.bulgarian.culture.service.api.UserService;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.bulgarian.culture.constants.Constants.INVALID_CREDENTIALS;
+import static com.bulgarian.culture.constants.Constants.INVALID_FORM;
 import static com.bulgarian.culture.constants.Constants.USERNAME;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
             UserService userService = UserServiceFactory.getDefaultUserService(UserTableHelperFactory.getUserTableHelper(this));
             validateUser(usernameText, passwordText, userService);
         });
-
     }
 
     private void validateUser(String usernameText, String passwordText, UserService userService) {
@@ -47,6 +49,11 @@ public class LoginActivity extends AppCompatActivity {
             editor.putStringSet(USERNAME, Stream.of(new String[]{usernameText}).collect(Collectors.toSet()));
             editor.apply();
             startActivity(new Intent(this, MainActivity.class));
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle(INVALID_FORM)
+                    .setMessage(INVALID_CREDENTIALS)
+                    .show();
         }
     }
 }
