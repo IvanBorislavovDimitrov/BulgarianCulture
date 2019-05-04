@@ -1,48 +1,48 @@
 package com.bulgarian.culture.activity;
 
-import android.os.AsyncTask;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bulgarian.culture.R;
-import com.bulgarian.culture.model.web.WeatherWrapper;
+import com.bulgarian.culture.listener.WeatherLocationListener;
 import com.bulgarian.culture.weather_client.DefaultWeatherService;
-
-import java.util.concurrent.ExecutionException;
 
 public class WeatherActivity extends AppCompatActivity {
 
     private DefaultWeatherService weatherService;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
         initDependencies();
-        updateWeather();
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        updateLocation();
     }
 
-    private void updateWeather() {
-        TextView temperature = findViewById(R.id.temperatureTextViewWeatherActivity);
-        AsyncTask<String, Void, WeatherWrapper> weather = weatherService.execute("Pazardzhik");
-        updateWeather(weather, temperature);
-    }
 
-    private void updateWeather(AsyncTask<String, Void, WeatherWrapper> weather, TextView temperature) {
-        try {
-            WeatherWrapper weatherWrapper = weather.get();
-            temperature.setText(String.valueOf(weatherWrapper.getMain().getTemp()));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+    private void updateLocation() {
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.INTERNET
+            }, 10);
         }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,
+                1000, locationListener);
     }
 
     private void initDependencies() {
         weatherService = new DefaultWeatherService();
+        locationListener = new WeatherLocationListener(weatherService, this);
     }
 }
