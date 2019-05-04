@@ -49,13 +49,14 @@ public class WeatherLocationListener implements LocationListener {
     }
 
     private void updateWeather(TownDetector townDetector, TextView temperature, TextView townMessage) {
-        AsyncTask<String, Void, WeatherWrapper> weather;
+        AsyncTask<String, Void, WeatherWrapper> weather = null;
         String townName = null;
         try {
             townName = townDetector.getCurrentTownName();
             weather = weatherService.execute(townName);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            e.printStackTrace();
+            return;
         }
         updateWeather(weather, temperature);
         updateTownMessage(townMessage, townName);
