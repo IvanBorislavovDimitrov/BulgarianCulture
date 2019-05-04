@@ -11,5 +11,4 @@ public final class UserValidatorFactory {
     public static UserValidator getDefaultValidator() {
         return new UserValidator();
     }
-
 }

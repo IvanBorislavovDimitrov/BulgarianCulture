@@ -7,15 +7,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bulgarian.culture.R;
-import com.bulgarian.culture.database.UserTableHelper;
 import com.bulgarian.culture.factory.UserServiceFactory;
 import com.bulgarian.culture.factory.UserTableHelperFactory;
 import com.bulgarian.culture.model.dto.UserBindingModel;
 import com.bulgarian.culture.service.api.UserService;
-import com.bulgarian.culture.service.impl.DefaultUserService;
 
 public class RegisterActivity extends AppCompatActivity {
-
     private UserService userService;
 
     @Override

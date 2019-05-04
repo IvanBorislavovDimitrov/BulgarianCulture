@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bulgarian.culture.R;
+import com.bulgarian.culture.weather_client.DefaultWeatherService;
 
 import static com.bulgarian.culture.constants.Constants.USERNAME;
 
@@ -21,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         showLoginPageIfLoggedIn();
         showRegisterButtonIfNotLoggedIn();
         showLoginButtonIfNotLoggedIn();
-        showLogoutButtonIfNotLoggedIn();
+        showLogoutButtonIfLoggedIn();
+        showCheckWeatherButtonIfLogged();
     }
 
     private void showLoginPageIfLoggedIn() {
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setVisibility(View.VISIBLE);
     }
 
-    private void showLogoutButtonIfNotLoggedIn() {
+    private void showLogoutButtonIfLoggedIn() {
         Button logoutButton = findViewById(R.id.logout);
         if (isLoggedIn()) {
             logoutButton.setVisibility(View.VISIBLE);
@@ -60,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         logoutButton.setVisibility(View.INVISIBLE);
+    }
+
+    private void showCheckWeatherButtonIfLogged() {
+        Button checkWeatherButton = findViewById(R.id.checkWeather);
+        if (isLoggedIn()) {
+            checkWeatherButton.setVisibility(View.VISIBLE);
+            checkWeatherButton.setOnClickListener(listener -> new DefaultWeatherService().execute("Plovdiv"));
+            return;
+        }
+        checkWeatherButton.setVisibility(View.INVISIBLE);
     }
 
     private void logout() {

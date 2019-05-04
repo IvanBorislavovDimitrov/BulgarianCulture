@@ -1,7 +1,5 @@
 package com.bulgarian.culture.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,19 +7,19 @@ import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bulgarian.culture.R;
 import com.bulgarian.culture.factory.UserServiceFactory;
 import com.bulgarian.culture.factory.UserTableHelperFactory;
 import com.bulgarian.culture.service.api.UserService;
 
-import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.bulgarian.culture.constants.Constants.USERNAME;
 
 public class LoginActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

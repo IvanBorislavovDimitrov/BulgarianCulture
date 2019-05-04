@@ -48,5 +48,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '1.1.1'
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.10'
+    implementation group: 'org.springframework.android', name: 'spring-android-rest-template', version: '1.0.1.RELEASE'
+    implementation group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
+    implementation group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
 
 }
