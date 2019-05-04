@@ -37,14 +37,18 @@ public class LoginActivity extends AppCompatActivity {
             TextView password = findViewById(R.id.passwordLogin);
             String passwordText = password.getText().toString();
             UserService userService = UserServiceFactory.getDefaultUserService(UserTableHelperFactory.getUserTableHelper(this));
-            if (userService.isValidUser(usernameText, passwordText)) {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putStringSet(USERNAME, Stream.of(new String[]{usernameText}).collect(Collectors.toSet()));
-                editor.apply();
-                startActivity(new Intent(this, MainActivity.class));
-            }
+            validateUser(usernameText, passwordText, userService);
         });
 
+    }
+
+    private void validateUser(String usernameText, String passwordText, UserService userService) {
+        if (userService.isValidUser(usernameText, passwordText)) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putStringSet(USERNAME, Stream.of(new String[]{usernameText}).collect(Collectors.toSet()));
+            editor.apply();
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
 }

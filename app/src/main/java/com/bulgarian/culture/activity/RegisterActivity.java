@@ -36,15 +36,19 @@ public class RegisterActivity extends AppCompatActivity {
             String password = String.valueOf(passwordTextView.getText());
             TextView confirmPasswordTextView = findViewById(R.id.confirmPasswordRegister);
             String confirmPassword = String.valueOf(confirmPasswordTextView.getText());
-            UserBindingModel userBindingModel = new UserBindingModel.Builder()
-                    .username(username)
-                    .email(email)
-                    .password(password)
-                    .confirmPassword(confirmPassword)
-                    .build();
+            UserBindingModel userBindingModel = createUser(username, email, password, confirmPassword);
             userService.registerUser(userBindingModel);
             startActivity(new Intent(this, MainActivity.class));
         });
+    }
+
+    private UserBindingModel createUser(String username, String email, String password, String confirmPassword) {
+        return new UserBindingModel.Builder()
+                .username(username)
+                .email(email)
+                .password(password)
+                .confirmPassword(confirmPassword)
+                .build();
     }
 
     private void initDependencies() {
