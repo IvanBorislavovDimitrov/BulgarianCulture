@@ -1,17 +1,17 @@
 package com.bulgarian.culture.model.web;
 
 public class Clouds {
-    private int all;
+    private double all;
 
-    public Clouds(int all) {
+    public Clouds(double all) {
         this.all = all;
     }
 
-    public int getAll() {
+    public double getAll() {
         return all;
     }
 
-    public void setAll(int all) {
+    public void setAll(double all) {
         this.all = all;
     }
 }

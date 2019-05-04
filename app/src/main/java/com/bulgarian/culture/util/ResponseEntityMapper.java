@@ -60,39 +60,47 @@ public final class ResponseEntityMapper {
     @SuppressWarnings("unchecked")
     private Main parseMain(Map<String, Object> resource) {
         Map<String, Object> mainMap = getResourceAttribute(resource, "main", Map.class);
-        double temp = zeroIfNull(getResourceAttribute(mainMap, "temp", Double.class));
-        int pressure = zeroIfNull(getResourceAttribute(mainMap, "pressure", Integer.class));
-        int humidity = zeroIfNull(getResourceAttribute(mainMap, "humidity", Integer.class));
-        int tempMin = zeroIfNull(getResourceAttribute(mainMap, "temp_min", Integer.class));
-        int tempMax = zeroIfNull(getResourceAttribute(mainMap, "temp_max", Integer.class));
+        double temp = convertToDouble(mainMap, "temp");
+        double pressure = convertToDouble(mainMap, "pressure");
+        double humidity = convertToDouble(mainMap, "humidity");
+        double tempMin = convertToDouble(mainMap, "tempMin");
+        double tempMax = convertToDouble(mainMap, "tempMax");
         return new Main(temp, pressure, humidity, tempMin, tempMax);
     }
 
     @SuppressWarnings("unchecked")
     private Wind parseWind(Map<String, Object> resource) {
         Map<String, Object> windMap = getResourceAttribute(resource, "wind", Map.class);
-        double speed = zeroIfNull(getResourceAttribute(windMap, "speed", Double.class));
-        double deg = zeroIfNull(getResourceAttribute(windMap, "deg", Double.class));
+        double speed = convertToDouble(windMap, "speed");
+        double deg = convertToDouble(windMap, "deg");
         return new Wind(speed, deg);
     }
 
     @SuppressWarnings("unchecked")
     private Clouds parseClouds(Map<String, Object> resource) {
         Map<String, Object> cloudsMap = getResourceAttribute(resource, "clouds", Map.class);
-        int all = zeroIfNull(getResourceAttribute(cloudsMap, "all", Integer.class));
+        double all = convertToDouble(cloudsMap, "all");
         return new Clouds(all);
     }
 
     @SuppressWarnings("unchecked")
     private Sys parseSys(Map<String, Object> resource) {
         Map<String, Object> sysMap = getResourceAttribute(resource, "sys", Map.class);
-        int type = zeroIfNull(getResourceAttribute(sysMap, "type", Integer.class));
+        double type = convertToDouble(sysMap, "type");
         int id = zeroIfNull(getResourceAttribute(sysMap, "id", Integer.class));
         double message = zeroIfNull(getResourceAttribute(sysMap, "message", Double.class));
         String country = getResourceAttribute(sysMap, "country", String.class);
-        int sunrise = zeroIfNull(getResourceAttribute(sysMap, "sunrise", Integer.class));
-        int sunset = zeroIfNull(getResourceAttribute(sysMap, "sunset", Integer.class));
+        double sunrise = convertToDouble(sysMap, "sunrise");
+        double sunset = convertToDouble(sysMap, "sunset");
         return new Sys(type, id, message, country, sunrise, sunset);
+    }
+
+    private Double convertToDouble(Map<String, Object> resource, String attributeName) {
+        try {
+            return zeroIfNull(getResourceAttribute(resource, attributeName, Double.class));
+        } catch (ClassCastException e) {
+            return zeroIfNull(Double.valueOf(getResourceAttribute(resource, attributeName, Integer.class)));
+        }
     }
 
     @SuppressWarnings("unchecked")

@@ -1,14 +1,14 @@
 package com.bulgarian.culture.model.web;
 
 public class Sys {
-    private int type;
+    private double type;
     private int id;
     private double message;
     private String country;
-    private int sunrise;
-    private int sunset;
+    private double sunrise;
+    private double sunset;
 
-    public Sys(int type, int id, double message, String country, int sunrise, int sunset) {
+    public Sys(double type, int id, double message, String country, double sunrise, double sunset) {
         this.type = type;
         this.id = id;
         this.message = message;
@@ -17,7 +17,7 @@ public class Sys {
         this.sunset = sunset;
     }
 
-    public int getType() {
+    public double getType() {
         return type;
     }
 
@@ -49,19 +49,19 @@ public class Sys {
         this.country = country;
     }
 
-    public int getSunrise() {
+    public double getSunrise() {
         return sunrise;
     }
 
-    public void setSunrise(int sunrise) {
+    public void setSunrise(double sunrise) {
         this.sunrise = sunrise;
     }
 
-    public int getSunset() {
+    public double getSunset() {
         return sunset;
     }
 
-    public void setSunset(int sunset) {
+    public void setSunset(double sunset) {
         this.sunset = sunset;
     }
 }

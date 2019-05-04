@@ -10,7 +10,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bulgarian.culture.R;
-import com.bulgarian.culture.weather_client.DefaultWeatherService;
 
 import static com.bulgarian.culture.constants.Constants.USERNAME;
 
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         Button checkWeatherButton = findViewById(R.id.checkWeather);
         if (isLoggedIn()) {
             checkWeatherButton.setVisibility(View.VISIBLE);
-            checkWeatherButton.setOnClickListener(listener -> new DefaultWeatherService().execute("Plovdiv"));
+            checkWeatherButton.setOnClickListener(listener -> startActivity(new Intent(this, WeatherActivity.class)));
             return;
         }
         checkWeatherButton.setVisibility(View.INVISIBLE);

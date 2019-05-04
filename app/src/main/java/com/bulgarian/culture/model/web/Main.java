@@ -3,12 +3,12 @@ package com.bulgarian.culture.model.web;
 public class Main {
 
     private double temp;
-    private int pressure;
-    private int humidity;
-    private int tempMin;
-    private int tempMax;
+    private double pressure;
+    private double humidity;
+    private double tempMin;
+    private double tempMax;
 
-    public Main(double temp, int pressure, int humidity, int tempMin, int tempMax) {
+    public Main(double temp, double pressure, double humidity, double tempMin, double tempMax) {
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
@@ -24,35 +24,35 @@ public class Main {
         this.temp = temp;
     }
 
-    public int getPressure() {
+    public double getPressure() {
         return pressure;
     }
 
-    public void setPressure(int pressure) {
+    public void setPressure(double pressure) {
         this.pressure = pressure;
     }
 
-    public int getHumidity() {
+    public double getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(int humidity) {
+    public void setHumidity(double humidity) {
         this.humidity = humidity;
     }
 
-    public int getTempMin() {
+    public double getTempMin() {
         return tempMin;
     }
 
-    public void setTempMin(int tempMin) {
+    public void setTempMin(double tempMin) {
         this.tempMin = tempMin;
     }
 
-    public int getTempMax() {
+    public double getTempMax() {
         return tempMax;
     }
 
-    public void setTempMax(int tempMax) {
+    public void setTempMax(double tempMax) {
         this.tempMax = tempMax;
     }
 }
