@@ -45,14 +45,13 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(UserBindingModel userBindingModel) {
         try {
             userService.registerUser(userBindingModel);
+            startActivity(new Intent(this, MainActivity.class));
         } catch (UserException e) {
             new AlertDialog.Builder(this)
                     .setTitle(INVALID_FORM)
                     .setMessage(e.getMessage())
                     .show();
-            return;
         }
-        startActivity(new Intent(this, MainActivity.class));
     }
 
     private UserBindingModel createUser(String username, String email, String password, String confirmPassword) {

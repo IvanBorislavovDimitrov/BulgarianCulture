@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.bulgarian.culture.R;
 import com.bulgarian.culture.activity.WeatherActivity;
 import com.bulgarian.culture.detector.TownDetector;
-import com.bulgarian.culture.model.web.Weather;
 import com.bulgarian.culture.model.web.WeatherWrapper;
 import com.bulgarian.culture.weather_client.DefaultWeatherService;
 
@@ -28,7 +27,6 @@ public class WeatherLocationListener implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-
         TownDetector townDetector = new TownDetector(weatherActivity, location.getLatitude(), location.getLongitude());
         updateWeather(townDetector);
     }
