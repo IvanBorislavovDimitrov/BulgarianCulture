@@ -11,14 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="56dp"
         android:text="0"
-        android:textSize="80sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/temperatureMessageTextViewWeatherActivity"
         app:layout_constraintTop_toBottomOf="@+id/townMessageTextViewWeatherActivity" />
 
     <TextView
@@ -26,10 +25,129 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/temperatureMessageTextViewWeatherActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="52dp"
+        android:text="Temperature: "
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/townMessageTextViewWeatherActivity" />
+
+    <TextView
+        android:id="@+id/pressureMessageTextViewWeatherActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="44dp"
+        android:text="Pressure: "
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperatureMessageTextViewWeatherActivity" />
+
+    <TextView
+        android:id="@+id/pressureTextViewWeatherActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
+        android:text="0"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toEndOf="@+id/pressureMessageTextViewWeatherActivity"
+        app:layout_constraintTop_toBottomOf="@+id/temperatureTextViewWeatherActivity" />
+
+    <TextView
+        android:id="@+id/humidityMessageTextViewWeatherActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="44dp"
+        android:text="Humidity: "
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pressureMessageTextViewWeatherActivity" />
+
+    <TextView
+        android:id="@+id/humidityTextViewWeatherActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
+        android:text="0"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.745"
+        app:layout_constraintStart_toEndOf="@+id/humidityMessageTextViewWeatherActivity"
+        app:layout_constraintTop_toBottomOf="@+id/pressureTextViewWeatherActivity" />
+
+    <TextView
+        android:id="@+id/maxTempMessageWeatherActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="44dp"
+        android:text="Max Temp:"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/humidityMessageTextViewWeatherActivity" />
+
+    <TextView
+        android:id="@+id/maxTempTextViewWeatherActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
+        android:text="0"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.723"
+        app:layout_constraintStart_toEndOf="@+id/maxTempMessageWeatherActivity"
+        app:layout_constraintTop_toBottomOf="@+id/humidityTextViewWeatherActivity" />
+
+    <TextView
+        android:id="@+id/minTempMessageTextViewModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginBottom="8dp"
+        android:text="Min Temp:"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maxTempMessageWeatherActivity"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/minTempTextViewWeatherActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="0"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintStart_toEndOf="@+id/minTempMessageTextViewModel"
+        app:layout_constraintTop_toBottomOf="@+id/maxTempTextViewWeatherActivity"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,8 +63,8 @@ public final class ResponseEntityMapper {
         double temp = convertToDouble(mainMap, "temp");
         double pressure = convertToDouble(mainMap, "pressure");
         double humidity = convertToDouble(mainMap, "humidity");
-        double tempMin = convertToDouble(mainMap, "tempMin");
-        double tempMax = convertToDouble(mainMap, "tempMax");
+        double tempMin = convertToDouble(mainMap, "temp_min");
+        double tempMax = convertToDouble(mainMap, "temp_max");
         return new Main(temp, pressure, humidity, tempMin, tempMax);
     }
 
