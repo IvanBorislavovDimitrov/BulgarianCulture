@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/isLoggedIn" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/culture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -103,7 +103,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
@@ -114,7 +114,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.063"
-        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintStart_toEndOf="@+id/culture"
         app:layout_constraintTop_toBottomOf="@+id/logout"
         app:layout_constraintVertical_bias="0.0" />
 

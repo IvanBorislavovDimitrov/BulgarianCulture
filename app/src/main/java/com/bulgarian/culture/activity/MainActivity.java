@@ -18,11 +18,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        showButtons();
+    }
+
+    private void showButtons() {
         showLoginPageIfLoggedIn();
         showRegisterButtonIfNotLoggedIn();
         showLoginButtonIfNotLoggedIn();
         showLogoutButtonIfLoggedIn();
         showCheckWeatherButtonIfLogged();
+        showCultureButtonIfLogged();
+        showHistoryButtonIfLogged();
     }
 
     private void showLoginPageIfLoggedIn() {
@@ -71,6 +77,26 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         checkWeatherButton.setVisibility(View.INVISIBLE);
+    }
+
+    private void showCultureButtonIfLogged() {
+        Button cultureButton = findViewById(R.id.culture);
+        if (isLoggedIn()) {
+            cultureButton.setVisibility(View.VISIBLE);
+            cultureButton.setOnClickListener(listener -> startActivity(new Intent(this, getClass())));
+            return;
+        }
+        cultureButton.setVisibility(View.INVISIBLE);
+    }
+
+    private void showHistoryButtonIfLogged() {
+        Button historyButton = findViewById(R.id.history);
+        if (isLoggedIn()) {
+            historyButton.setVisibility(View.VISIBLE);
+            historyButton.setOnClickListener(listener -> startActivity(new Intent(this, getClass())));
+            return;
+        }
+        historyButton.setVisibility(View.INVISIBLE);
     }
 
     private void logout() {
