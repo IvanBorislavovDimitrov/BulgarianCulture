@@ -33,10 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void showLoginPageIfLoggedIn() {
         View isLoggedInView = findViewById(R.id.isLoggedIn);
-        isLoggedInView.setVisibility(View.INVISIBLE);
         if (isLoggedIn()) {
             isLoggedInView.setVisibility(View.VISIBLE);
+            return;
         }
+        isLoggedInView.setVisibility(View.INVISIBLE);
     }
 
     private void showRegisterButtonIfNotLoggedIn() {
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         Button cultureButton = findViewById(R.id.culture);
         if (isLoggedIn()) {
             cultureButton.setVisibility(View.VISIBLE);
-            cultureButton.setOnClickListener(listener -> startActivity(new Intent(this, getClass())));
+            cultureButton.setOnClickListener(listener -> startActivity(new Intent(this, CultureActivity.class)));
             return;
         }
         cultureButton.setVisibility(View.INVISIBLE);
