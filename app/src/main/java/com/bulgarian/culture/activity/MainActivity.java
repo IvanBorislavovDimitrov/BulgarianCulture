@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         Button cultureButton = findViewById(R.id.culture);
         if (isLoggedIn()) {
             cultureButton.setVisibility(View.VISIBLE);
-            cultureButton.setOnClickListener(listener -> startActivity(new Intent(this, CultureActivity.class)));
+            cultureButton.setOnClickListener(listener -> startActivity(new Intent(this, HistoryActivity.class)));
             return;
         }
         cultureButton.setVisibility(View.INVISIBLE);
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         Button historyButton = findViewById(R.id.history);
         if (isLoggedIn()) {
             historyButton.setVisibility(View.VISIBLE);
-            historyButton.setOnClickListener(listener -> startActivity(new Intent(this, getClass())));
+            historyButton.setOnClickListener(listener -> startActivity(new Intent(this, HistoryActivity.class)));
             return;
         }
         historyButton.setVisibility(View.INVISIBLE);

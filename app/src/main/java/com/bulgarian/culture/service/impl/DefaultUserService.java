@@ -16,7 +16,6 @@ import java.util.List;
 
 public class DefaultUserService implements UserService {
 
-
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
 

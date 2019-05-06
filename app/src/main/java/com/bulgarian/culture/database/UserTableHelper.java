@@ -15,17 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.bulgarian.culture.constants.Constants.DB_VERSION;
+import static com.bulgarian.culture.constants.Constants.NON_SUCCESSFUL_INSERT;
+import static com.bulgarian.culture.constants.Constants.TAG;
 
 public class UserTableHelper extends SQLiteOpenHelper {
-
-    private static final String TAG = "DatabaseHelper";
 
     private static final String TABLE_NAME = "users";
     private static final String ID_COL = "id";
     private static final String USERNAME_COL = "username";
     private static final String EMAIL_COL = "email";
     private static final String PASSWORD_COL = "password";
-    private static final int NON_SUCCESSFUL_INSERT = -1;
     private static final int ID_COL_INDEX = 0;
     private static final int USERNAME_COL_INDEX = 1;
     private static final int EMAIL_COL_INDEX = 2;
@@ -50,16 +49,14 @@ public class UserTableHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean save(User user) {
+    public void save(User user) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USERNAME_COL, user.getUsername());
         contentValues.put(EMAIL_COL, user.getEmail());
         contentValues.put(PASSWORD_COL, user.getPassword());
-
         Log.d(TAG, "save: Adding " + user.getUsername() + " to " + TABLE_NAME);
-
-        return db.insert(TABLE_NAME, null, contentValues) == NON_SUCCESSFUL_INSERT;
+        db.insert(TABLE_NAME, null, contentValues);
     }
 
     public List<String> findUserUsernames() {
@@ -70,7 +67,6 @@ public class UserTableHelper extends SQLiteOpenHelper {
                 users.add(cursor.getString(USERNAME_COL_INDEX));
             }
         }
-
         return users;
     }
 
@@ -82,7 +78,6 @@ public class UserTableHelper extends SQLiteOpenHelper {
                 emails.add(cursor.getString(EMAIL_COL_INDEX));
             }
         }
-
         return emails;
     }
 
@@ -93,12 +88,11 @@ public class UserTableHelper extends SQLiteOpenHelper {
                 return null;
             }
             return new User.Builder()
-                    .id(cursor.getString(ID_COL_INDEX))
+                    .id(Integer.parseInt(cursor.getString(ID_COL_INDEX)))
                     .username(cursor.getString(USERNAME_COL_INDEX))
                     .email(cursor.getString(EMAIL_COL_INDEX))
                     .password(cursor.getString(PASSWORD_COL_INDEX))
                     .build();
         }
     }
-
 }

@@ -43,7 +43,7 @@ public class User extends IdEntity {
             user = new User();
         }
 
-        public Builder id(String id) {
+        public Builder id(int id) {
             user.setId(id);
             return this;
         }
