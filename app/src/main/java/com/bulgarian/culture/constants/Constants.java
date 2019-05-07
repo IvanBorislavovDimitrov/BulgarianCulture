@@ -3,7 +3,7 @@ package com.bulgarian.culture.constants;
 public class Constants {
 
     public static final String ID_COL = "id";
-    public static final int DB_VERSION = 13;
+    public static final int DB_VERSION = 15;
     public static final String USERNAME = "username";
     public static final String INVALID_FORM = "Invalid form!";
     public static final String INVALID_CREDENTIALS = "Invalid credentials!";
