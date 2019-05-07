@@ -40,7 +40,6 @@ public class DefaultUserRepository implements UserRepository {
         if (user == null) {
             return false;
         }
-
         return user.getPassword().equals(password);
     }
 }
