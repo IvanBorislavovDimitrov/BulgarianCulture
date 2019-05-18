@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bulgarian.culture.R;
 import com.bulgarian.culture.factory.UserServiceFactory;
-import com.bulgarian.culture.factory.UserTableHelperFactory;
+import com.bulgarian.culture.factory.DatabaseHelperFactory;
 import com.bulgarian.culture.service.api.UserService;
 
 import java.util.stream.Collectors;
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
             String usernameText = username.getText().toString();
             TextView password = findViewById(R.id.passwordLogin);
             String passwordText = password.getText().toString();
-            UserService userService = UserServiceFactory.getDefaultUserService(UserTableHelperFactory.getUserTableHelper(this));
+            UserService userService = UserServiceFactory.getDefaultUserService(DatabaseHelperFactory.getDatabaseHelper(this));
             validateUser(usernameText, passwordText, userService);
         });
     }

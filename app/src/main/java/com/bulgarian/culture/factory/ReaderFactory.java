@@ -7,12 +7,17 @@ import com.bulgarian.culture.io.Reader;
 
 public final class ReaderFactory {
 
+    private static Reader reader;
+
     private ReaderFactory() {
 
     }
 
     public static Reader getDefaultFileReader(String filename, Context context) {
-        return new FileReader(filename, context);
+        if (reader == null) {
+            reader = new FileReader(filename, context);
+        }
+        return reader;
     }
 
 }
