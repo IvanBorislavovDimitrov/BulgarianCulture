@@ -1,6 +1,6 @@
 package com.bulgarian.culture.repository.impl;
 
-import com.bulgarian.culture.database.DatabaseHelper;
+import com.bulgarian.culture.database.UserTableHelper;
 import com.bulgarian.culture.model.enity.User;
 import com.bulgarian.culture.repository.api.UserRepository;
 
@@ -8,15 +8,15 @@ import java.util.List;
 
 public class DefaultUserRepository implements UserRepository {
 
-    private final DatabaseHelper databaseHelper;
+    private final UserTableHelper userTableHelper;
 
-    public DefaultUserRepository(DatabaseHelper databaseHelper) {
-        this.databaseHelper = databaseHelper;
+    public DefaultUserRepository(UserTableHelper userTableHelper) {
+        this.userTableHelper = userTableHelper;
     }
 
     @Override
     public void save(User user) {
-        databaseHelper.saveUser(user);
+        userTableHelper.save(user);
     }
 
     @Override
@@ -26,17 +26,17 @@ public class DefaultUserRepository implements UserRepository {
 
     @Override
     public List<String> findUserUsernames() {
-        return databaseHelper.findUserUsernames();
+        return userTableHelper.findUserUsernames();
     }
 
     @Override
     public List<String> findUserEmails() {
-        return databaseHelper.findUserEmails();
+        return userTableHelper.findUserEmails();
     }
 
     @Override
     public boolean userExistsByUsernameAndPassword(String username, String password) {
-        User user= databaseHelper.findUserByUsername(username);
+        User user= userTableHelper.findUserByUsername(username);
         if (user == null) {
             return false;
         }

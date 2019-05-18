@@ -1,32 +1,25 @@
 package com.bulgarian.culture.repository.impl;
 
-import com.bulgarian.culture.database.DatabaseHelper;
+import com.bulgarian.culture.database.QuestionTableHelper;
 import com.bulgarian.culture.model.enity.Question;
 import com.bulgarian.culture.repository.api.QuestionRepository;
 
-import java.util.List;
-
 public class DefaultQuestionRepository implements QuestionRepository {
 
-    private final DatabaseHelper databaseHelper;
+    private final QuestionTableHelper questionTableHelper;
 
-    public DefaultQuestionRepository(DatabaseHelper databaseHelper) {
-        this.databaseHelper = databaseHelper;
-        databaseHelper.populateQuestionsTable();
+    public DefaultQuestionRepository(QuestionTableHelper questionTableHelper) {
+        this.questionTableHelper = questionTableHelper;
+        questionTableHelper.populateQuestionsTable();
     }
 
     @Override
     public void save(Question question) {
-        databaseHelper.addQuestion(question);
+        questionTableHelper.addQuestion(question);
     }
 
     @Override
     public Question findById(String id) {
         return null;
-    }
-
-    @Override
-    public List<Question> getRandomQuestions(int randomQuestionIndex, int length) {
-        return databaseHelper.getQuestionsBetween(randomQuestionIndex, length);
     }
 }

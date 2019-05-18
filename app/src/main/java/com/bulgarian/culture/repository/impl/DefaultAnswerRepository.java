@@ -1,16 +1,16 @@
 package com.bulgarian.culture.repository.impl;
 
-import com.bulgarian.culture.database.DatabaseHelper;
+import com.bulgarian.culture.database.AnswerTableHelper;
 import com.bulgarian.culture.model.enity.Answer;
 import com.bulgarian.culture.repository.api.AnswerRepository;
 
 public class DefaultAnswerRepository implements AnswerRepository {
 
-    private DatabaseHelper databaseHelper;
+    private AnswerTableHelper answerTableHelper;
 
-    public DefaultAnswerRepository(DatabaseHelper databaseHelper) {
-        this.databaseHelper = databaseHelper;
-        databaseHelper.populateAnswerTable();
+    public DefaultAnswerRepository(AnswerTableHelper answerTableHelper) {
+        this.answerTableHelper = answerTableHelper;
+        answerTableHelper.populateAnswerTable();
     }
 
     @Override
