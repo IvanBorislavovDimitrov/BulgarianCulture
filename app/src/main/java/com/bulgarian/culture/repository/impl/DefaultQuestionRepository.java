@@ -1,6 +1,6 @@
 package com.bulgarian.culture.repository.impl;
 
-import com.bulgarian.culture.database.QuestionTableHelper;
+import com.bulgarian.culture.database.DatabaseHelper;
 import com.bulgarian.culture.model.enity.Question;
 import com.bulgarian.culture.repository.api.QuestionRepository;
 
@@ -8,16 +8,16 @@ import java.util.List;
 
 public class DefaultQuestionRepository implements QuestionRepository {
 
-    private final QuestionTableHelper questionTableHelper;
+    private final DatabaseHelper databaseHelper;
 
-    public DefaultQuestionRepository(QuestionTableHelper questionTableHelper) {
-        this.questionTableHelper = questionTableHelper;
-        questionTableHelper.populateQuestionsTable();
+    public DefaultQuestionRepository(DatabaseHelper databaseHelper) {
+        this.databaseHelper = databaseHelper;
+        databaseHelper.populateQuestionsTable();
     }
 
     @Override
     public void save(Question question) {
-        questionTableHelper.addQuestion(question);
+        databaseHelper.addQuestion(question);
     }
 
     @Override
@@ -27,16 +27,21 @@ public class DefaultQuestionRepository implements QuestionRepository {
 
     @Override
     public List<Question> getQuestions() {
-        return  questionTableHelper.getQuestionsWithCoorectAnswers();
+        return databaseHelper.getQuestionsWithCoorectAnswers();
     }
 
     @Override
     public int getQuestionsCount() {
-        return questionTableHelper.getQuestionsCount();
+        return databaseHelper.getQuestionsCount();
     }
 
     @Override
     public Question getQuestionById(int id) {
-        return questionTableHelper.getQuestionById(id);
+        return databaseHelper.getQuestionById(id);
+    }
+
+    @Override
+    public List<Question> getRandomQuestions(int randomQuestionIndex, int length) {
+        return null;
     }
 }

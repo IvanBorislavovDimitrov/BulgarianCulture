@@ -5,11 +5,16 @@ import com.bulgarian.culture.parser.Parser;
 
 public final class ParserFactory {
 
+    private static Parser parser;
+
     private ParserFactory() {
 
     }
 
     public static Parser getDefaultJSONParser() {
-        return new JSONParser();
+        if (parser == null) {
+            parser = new JSONParser();
+        }
+        return parser;
     }
 }

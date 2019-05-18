@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bulgarian.culture.R;
 import com.bulgarian.culture.exception.UserException;
 import com.bulgarian.culture.factory.UserServiceFactory;
-import com.bulgarian.culture.factory.UserTableHelperFactory;
+import com.bulgarian.culture.factory.DatabaseHelperFactory;
 import com.bulgarian.culture.model.dto.UserBindingModel;
 import com.bulgarian.culture.service.api.UserService;
 
@@ -64,6 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initDependencies() {
-        userService = UserServiceFactory.getDefaultUserService(UserTableHelperFactory.getUserTableHelper(this));
+        userService = UserServiceFactory.getDefaultUserService(DatabaseHelperFactory.getDatabaseHelper(this));
     }
 }

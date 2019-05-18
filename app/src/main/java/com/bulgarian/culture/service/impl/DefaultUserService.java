@@ -1,6 +1,6 @@
 package com.bulgarian.culture.service.impl;
 
-import com.bulgarian.culture.database.UserTableHelper;
+import com.bulgarian.culture.database.DatabaseHelper;
 import com.bulgarian.culture.factory.UserValidatorFactory;
 import com.bulgarian.culture.model.dto.UserBindingModel;
 import com.bulgarian.culture.model.enity.User;
@@ -19,9 +19,9 @@ public class DefaultUserService implements UserService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
 
-    public DefaultUserService(UserTableHelper userTableHelper) {
+    public DefaultUserService(DatabaseHelper databaseHelper) {
         modelMapper = new ModelMapper();
-        userRepository = new DefaultUserRepository(userTableHelper);
+        userRepository = new DefaultUserRepository(databaseHelper);
     }
 
     @Override
