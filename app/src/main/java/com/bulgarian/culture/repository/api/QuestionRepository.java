@@ -6,4 +6,9 @@ import java.util.List;
 
 public interface QuestionRepository extends Repository<Question> {
 
+    List<Question> getQuestions();
+
+    int getQuestionsCount();
+
+    Question getQuestionById(int id);
 }

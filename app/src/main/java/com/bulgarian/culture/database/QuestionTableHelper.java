@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.bulgarian.culture.factory.ParserFactory;
 import com.bulgarian.culture.factory.ReaderFactory;
 import com.bulgarian.culture.io.Reader;
+import com.bulgarian.culture.model.enity.Answer;
 import com.bulgarian.culture.model.enity.Question;
 import com.bulgarian.culture.parser.Parser;
 
@@ -81,6 +82,35 @@ public class QuestionTableHelper extends SQLiteOpenHelper {
             }
         }
         return emails;
+    }
+    public List<Question> getQuestionsWithCoorectAnswers(){
+        SQLiteDatabase db = getReadableDatabase();
+        List<Question> questions = new ArrayList<>();
+        try (Cursor cursor = db.rawQuery("SELECT * FROM  TABLE_NAME", null )){
+            while(cursor.moveToNext()){
+                Question question = new Question(cursor.getString(1), new Answer(cursor.getString(2)));
+                questions.add(question);
+            }
+        }
+        return questions;
+    }
+    public int getQuestionsCount() {
+        SQLiteDatabase db = getReadableDatabase();
+        int count;
+        try(Cursor cr = db.rawQuery("SELECT TEXT_COL FROM TABLE_NAME", null)){
+            count = cr.getCount();
+        }
+        return count;
+    }
+
+    public Question getQuestionById(int id){
+        SQLiteDatabase db = getReadableDatabase();
+        Question question;
+        try(Cursor cr = db.rawQuery("SELECT * FROM TABLE_NAME WHERE ID_COL = ?", new String[]{String.valueOf(id)})){
+            question = new Question(cr.getString(1), new Answer(cr.getString(21)));
+        }
+
+        return question;
     }
 
     @Override

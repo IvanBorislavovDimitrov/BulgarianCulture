@@ -16,6 +16,9 @@ import com.bulgarian.culture.model.enity.Answer;
 import com.bulgarian.culture.model.enity.Question;
 import com.bulgarian.culture.parser.Parser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.bulgarian.culture.constants.Constants.DB_VERSION;
 import static com.bulgarian.culture.constants.Constants.ID_COL;
 import static com.bulgarian.culture.constants.Constants.QUESTIONS_FILENAME;
@@ -71,6 +74,17 @@ public class AnswerTableHelper extends SQLiteOpenHelper {
         contentValues.put(QUESTION_ID_COL, questionId);
         Log.d(TAG, "save: Adding " + answer.getText() + " to " + TABLE_NAME);
         db.insert(TABLE_NAME, null, contentValues);
+    }
+
+    public List<String> getQuestionAnswers(int questionId) {
+        SQLiteDatabase db = getReadableDatabase();
+        List<String> answers = new ArrayList<>();
+        try (Cursor cursor = db.rawQuery("SELECT * FROM  TABLE_NAME WHERE QQUESTION_ID_COL = ?", new String[]{String.valueOf(questionId)})) {
+            while (cursor.moveToNext()) {
+                answers.add(cursor.getString(1));
+            }
+        }
+        return answers;
     }
 
     @Override

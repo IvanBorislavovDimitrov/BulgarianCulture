@@ -8,6 +8,11 @@ public class Question extends IdEntity {
     private List<Answer> answers = new ArrayList<>();
     private Answer trueAnswer;
 
+    public Question(String text, Answer trueAnswer) {
+        this.text = text;
+        this.trueAnswer = trueAnswer;
+    }
+
     public Answer getTrueAnswer() {
         return trueAnswer;
     }
