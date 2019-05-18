@@ -28,7 +28,6 @@ public final class ResponseEntityMapper {
                 .name(getResourceAttribute(resource, "name", String.class))
                 .code(getResourceAttribute(resource, "cod", Integer.class))
                 .build();
-
     }
 
     @SuppressWarnings("unchecked")

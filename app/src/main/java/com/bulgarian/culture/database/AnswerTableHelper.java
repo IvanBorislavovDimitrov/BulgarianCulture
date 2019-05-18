@@ -42,7 +42,6 @@ public class AnswerTableHelper extends SQLiteOpenHelper {
                 QUESTION_ID_COL + " int, " +
                 "FOREIGN KEY (" + QUESTION_ID_COL + ") REFERENCES " + QuestionTableHelper.TABLE_NAME + "(" + ID_COL + "))";
         db.execSQL(createTable);
-        System.out.println();
     }
 
     public void populateAnswerTable() {

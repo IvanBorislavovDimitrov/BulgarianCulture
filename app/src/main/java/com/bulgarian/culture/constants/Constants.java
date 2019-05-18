@@ -10,5 +10,7 @@ public class Constants {
     public static final String QUESTIONS_FILENAME = "questions.json";
     public static final String TAG = "DatabaseHelper";
     public static final int NON_SUCCESSFUL_INSERT = -1;
+    public static final int QUESTIONS_BUFFER_LENGTH = 4;
+    public static final int TOTAL_QUESTIONS = 50;
 
 }
