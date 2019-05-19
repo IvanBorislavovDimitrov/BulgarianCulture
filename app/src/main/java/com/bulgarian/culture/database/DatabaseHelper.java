@@ -21,11 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.bulgarian.culture.constants.Constants.DB_VERSION;
-import static com.bulgarian.culture.constants.Constants.ID_COL;
 import static com.bulgarian.culture.constants.Constants.QUESTIONS_FILENAME;
 import static com.bulgarian.culture.constants.Constants.TAG;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static final String ID_COL = "id";
 
     private static final String USERS_TABLE_NAME = "users";
     private static final String USERS_USERNAME_COL = "username";
@@ -49,26 +50,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(@Nullable Context context) {
         super(context, QUESTIONS_TABLE_NAME, null, DB_VERSION);
         this.context = context;
+        onCreate(getWritableDatabase());
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String userCreateTable = "CREATE TABLE " + USERS_TABLE_NAME + " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        createUsersTableIfNotExists(db);
+        createQuestionsTableIfNotExists(db);
+        createAnswersTableIfNotExists(db);
+    }
+
+    private void createUsersTableIfNotExists(SQLiteDatabase db) {
+        String userCreateTable = "CREATE TABLE IF NOT EXISTS " + USERS_TABLE_NAME + " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 USERS_USERNAME_COL + " VARCHAR(200), " +
                 USERS_EMAIL_COL + " VARCHAR(200), " +
                 USERS_PASSWORD_COL + " VARCHAR(200))";
         db.execSQL(userCreateTable);
+    }
 
-        String questionsTableCreate = "CREATE TABLE " + QUESTIONS_TABLE_NAME + " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+    private void createQuestionsTableIfNotExists(SQLiteDatabase db) {
+        String questionsTableCreate = "CREATE TABLE IF NOT EXISTS " + QUESTIONS_TABLE_NAME + " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 VALID_ANSWER_COL + " VARCHAR(200), " +
                 QUESTIONS_TEXT_COL + " VARCHAR(200))";
         db.execSQL(questionsTableCreate);
+    }
 
-        String answersTableCreate = "CREATE TABLE " + ANSWERS_TABLE_NAME + " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+    private void createAnswersTableIfNotExists(SQLiteDatabase db) {
+        String answersTableCreate = "CREATE TABLE IF NOT EXISTS " + ANSWERS_TABLE_NAME + " (" + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ANSWERS_TEXT_COL + " VARCHAR(200), " +
                 QUESTION_ID_COL + " int, " +
                 "FOREIGN KEY (" + QUESTION_ID_COL + ") REFERENCES " + DatabaseHelper.QUESTIONS_TABLE_NAME + "(" + ID_COL + "))";
         db.execSQL(answersTableCreate);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + QUESTIONS_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ANSWERS_TABLE_NAME);
+        createUsersTableIfNotExists(db);
+        createQuestionsTableIfNotExists(db);
+        createAnswersTableIfNotExists(db);
     }
 
     public void saveUser(User user) {
@@ -185,30 +207,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return answers;
     }
 
-    public List<Question> getQuestionsWithCoorectAnswers(){
+    public List<Question> getQuestionsWithCorectAnswers() {
         SQLiteDatabase db = getReadableDatabase();
         List<Question> questions = new ArrayList<>();
-        try (Cursor cursor = db.rawQuery("SELECT * FROM  TABLE_NAME", null )){
-            while(cursor.moveToNext()){
+        try (Cursor cursor = db.rawQuery("SELECT * FROM " + QUESTIONS_TABLE_NAME, null)) {
+            while (cursor.moveToNext()) {
                 Question question = new Question(cursor.getString(1), new Answer(cursor.getString(2)));
                 questions.add(question);
             }
         }
         return questions;
     }
+
     public int getQuestionsCount() {
         SQLiteDatabase db = getReadableDatabase();
         int count;
-        try(Cursor cr = db.rawQuery("SELECT TEXT_COL FROM TABLE_NAME", null)){
+        try (Cursor cr = db.rawQuery("SELECT TEXT_COL FROM " + QUESTIONS_TABLE_NAME, null)) {
             count = cr.getCount();
         }
         return count;
     }
 
-    public Question getQuestionById(int id){
+    public Question getQuestionById(int id) {
         SQLiteDatabase db = getReadableDatabase();
         Question question;
-        try(Cursor cr = db.rawQuery("SELECT * FROM TABLE_NAME WHERE ID_COL = ?", new String[]{String.valueOf(id)})){
+        try (Cursor cr = db.rawQuery("SELECT * FROM " + QUESTIONS_TABLE_NAME + " WHERE " + QUESTION_ID_COL + " = ?", new String[]{String.valueOf(id)})) {
             question = new Question(cr.getString(1), new Answer(cr.getString(21)));
         }
 
@@ -216,9 +239,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<String> findQuestionsNames() {
-        SQLiteDatabase db = getWritableDatabase();
         List<String> emails = new ArrayList<>();
-        try (Cursor cursor = db.rawQuery("SELECT * FROM " + QUESTIONS_TABLE_NAME, null)) {
+        try (Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + QUESTIONS_TABLE_NAME, null)) {
             while (cursor.moveToNext()) {
                 emails.add(cursor.getString(1));
             }
@@ -226,15 +248,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return emails;
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE " + USERS_TABLE_NAME);
-        db.execSQL("DROP TABLE " + QUESTIONS_TABLE_NAME);
-        db.execSQL("DROP TABLE " + ANSWERS_TABLE_NAME);
-    }
-
     public List<Question> getQuestionsBetween(int randomQuestionIndex, int length) {
-
-        return null;
+        List<Question> questions = new ArrayList<>();
+        try (Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + QUESTIONS_TABLE_NAME + " AS q JOIN " + ANSWERS_TABLE_NAME + " AS a ON q." + ID_COL + " = a." + ID_COL, null)) {
+            while (cursor.moveToNext()) {
+                System.out.println();
+            }
+        }
+        return questions;
     }
 }

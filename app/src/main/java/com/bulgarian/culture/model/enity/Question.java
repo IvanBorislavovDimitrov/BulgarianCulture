@@ -8,6 +8,10 @@ public class Question extends IdEntity {
     private List<Answer> answers = new ArrayList<>();
     private Answer trueAnswer;
 
+    public Question() {
+        // Required by ObjectMapper (Jackson)
+    }
+
     public Question(String text, Answer trueAnswer) {
         this.text = text;
         this.trueAnswer = trueAnswer;

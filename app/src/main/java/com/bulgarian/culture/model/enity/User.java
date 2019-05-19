@@ -8,8 +8,8 @@ public class User extends IdEntity {
 
     private String password;
 
-    protected User() {
-
+    public User() {
+        // Required by ObjectMapper (Jackson)
     }
 
     public String getUsername() {

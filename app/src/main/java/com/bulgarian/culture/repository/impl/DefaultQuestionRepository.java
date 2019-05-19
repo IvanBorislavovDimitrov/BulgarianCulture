@@ -27,7 +27,7 @@ public class DefaultQuestionRepository implements QuestionRepository {
 
     @Override
     public List<Question> getQuestions() {
-        return databaseHelper.getQuestionsWithCoorectAnswers();
+        return databaseHelper.getQuestionsWithCorectAnswers();
     }
 
     @Override
@@ -42,6 +42,6 @@ public class DefaultQuestionRepository implements QuestionRepository {
 
     @Override
     public List<Question> getRandomQuestions(int randomQuestionIndex, int length) {
-        return null;
+        return databaseHelper.getQuestionsBetween(randomQuestionIndex, length);
     }
 }
