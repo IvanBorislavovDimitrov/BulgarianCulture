@@ -44,15 +44,15 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void showQuestion() {
-        List<QuestionViewModel> questionViewModel = questionService.getRandomQuestion();
+        List<QuestionViewModel> questionViewModels = questionService.getRandomQuestion();
         sectionsStatePagerAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.container);
-        setupViewPage(viewPager);
+        setupViewPage(viewPager, questionViewModels.get(0));
     }
 
-    private void setupViewPage(ViewPager viewPager) {
+    private void setupViewPage(ViewPager viewPager, QuestionViewModel questionViewModel) {
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new QuestionsFragment(), "QuestionsFragment");
+        adapter.addFragment(new QuestionsFragment(questionViewModel), "QuestionsFragment");
         viewPager.setAdapter(adapter);
     }
 

@@ -11,12 +11,12 @@
         android:textSize="25sp"
         android:text="Question"
         android:layout_marginTop="40dp"
-        android:id="@+id/textTitle"/>
+        android:id="@+id/questionName"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textTitle"
+        android:layout_below="@+id/questionName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:id="@+id/firstQuestionButton"
