@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         try {
             userService.registerUser(userBindingModel);
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         } catch (UserException e) {
             new AlertDialog.Builder(this)
                     .setTitle(INVALID_FORM)

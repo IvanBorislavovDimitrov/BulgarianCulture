@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putStringSet(USERNAME, Stream.of(new String[]{usernameText}).collect(Collectors.toSet()));
             editor.apply();
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else {
             new AlertDialog.Builder(this)
                     .setTitle(INVALID_FORM)

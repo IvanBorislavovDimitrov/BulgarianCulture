@@ -37,6 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int USERS_USERNAME_COL_INDEX = 1;
     private static final int USERS_EMAIL_COL_INDEX = 2;
     private static final int USERS_PASSWORD_COL_INDEX = 3;
+    private static final String DB_NAME = "bulgarian_culture_db";
 
     private static final String QUESTIONS_TABLE_NAME = "questions";
     private static final String QUESTIONS_TEXT_COL = "question_text";
@@ -49,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private Context context;
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, QUESTIONS_TABLE_NAME, null, DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
         onCreate(getWritableDatabase());
     }

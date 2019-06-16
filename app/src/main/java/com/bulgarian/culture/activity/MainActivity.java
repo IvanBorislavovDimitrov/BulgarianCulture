@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         showLoginButtonIfNotLoggedIn();
         showLogoutButtonIfLoggedIn();
         showCheckWeatherButtonIfLogged();
-        showCultureButtonIfLogged();
         showHistoryButtonIfLogged();
     }
 
@@ -78,16 +77,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         checkWeatherButton.setVisibility(View.INVISIBLE);
-    }
-
-    private void showCultureButtonIfLogged() {
-        Button cultureButton = findViewById(R.id.culture);
-        if (isLoggedIn()) {
-            cultureButton.setVisibility(View.VISIBLE);
-            cultureButton.setOnClickListener(listener -> startActivity(new Intent(this, HistoryActivity.class)));
-            return;
-        }
-        cultureButton.setVisibility(View.INVISIBLE);
     }
 
     private void showHistoryButtonIfLogged() {
