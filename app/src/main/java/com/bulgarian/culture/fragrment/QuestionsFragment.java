@@ -1,6 +1,7 @@
 package com.bulgarian.culture.fragrment;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,8 @@ public class QuestionsFragment extends Fragment {
                     .setTitle("Correct")
                     .setMessage("Congratulations, let's move on")
                     .show();
+            Intent intent = new Intent(getActivity(), HistoryActivity.class);
+            startActivity(intent);
         });
         if (firstQuestionButton != correctAnswerButton) {
             firstQuestionButton.setOnClickListener(l -> {
@@ -84,16 +87,20 @@ public class QuestionsFragment extends Fragment {
     }
 
     private Button getCorrectAnswerButton(Button firstQuestionButton, Button secondQuestionButton, Button thirdQuestionButton, Button fourthQuestionButton, String trueAnswer) {
-        if (firstQuestionButton.getText().equals(trueAnswer)) {
+        if (firstQuestionButton.getText().toString().contains(trueAnswer) ||
+                trueAnswer.contains(firstQuestionButton.getText().toString())) {
             return firstQuestionButton;
         }
-        if (secondQuestionButton.getText().equals(trueAnswer)) {
+        if (secondQuestionButton.getText().toString().contains(trueAnswer) ||
+                trueAnswer.contains(secondQuestionButton.getText().toString())) {
             return secondQuestionButton;
         }
-        if (thirdQuestionButton.getText().equals(trueAnswer)) {
+        if (thirdQuestionButton.getText().toString().contains(trueAnswer) ||
+                trueAnswer.contains(thirdQuestionButton.getText().toString())) {
             return thirdQuestionButton;
         }
-        if (fourthQuestionButton.getText().equals(trueAnswer)) {
+        if (fourthQuestionButton.getText().toString().contains(trueAnswer) ||
+                trueAnswer.contains(fourthQuestionButton.getText().toString())) {
             return fourthQuestionButton;
         }
         return null;

@@ -1,8 +1,6 @@
 package com.bulgarian.culture.activity;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -47,12 +45,15 @@ public class HistoryActivity extends AppCompatActivity {
         List<QuestionViewModel> questionViewModels = questionService.getRandomQuestion();
         sectionsStatePagerAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.container);
-        setupViewPage(viewPager, questionViewModels.get(0));
+        for (QuestionViewModel questionViewModel : questionViewModels) {
+            setupViewPage(questionViewModel);
+            System.out.println("E");
+        }
     }
 
-    private void setupViewPage(ViewPager viewPager, QuestionViewModel questionViewModel) {
+    private void setupViewPage(QuestionViewModel questionViewModels) {
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new QuestionsFragment(questionViewModel), "QuestionsFragment");
+        adapter.addFragment(new QuestionsFragment(questionViewModels));
         viewPager.setAdapter(adapter);
     }
 
