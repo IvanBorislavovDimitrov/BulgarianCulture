@@ -13,7 +13,7 @@ public final class ReaderFactory {
 
     }
 
-    public static Reader getDefaultFileReader(String filename, Context context) {
+    public synchronized static Reader getDefaultFileReader(String filename, Context context) {
         if (reader == null) {
             reader = new FileReader(filename, context);
         }

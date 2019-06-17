@@ -11,7 +11,7 @@ public final class UserServiceFactory {
     private UserServiceFactory() {
     }
 
-    public static UserService getDefaultUserService(DatabaseHelper databaseHelper) {
+    public synchronized static UserService getDefaultUserService(DatabaseHelper databaseHelper) {
         if (userService == null) {
             userService = new DefaultUserService(databaseHelper);
         }

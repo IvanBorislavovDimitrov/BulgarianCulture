@@ -11,7 +11,7 @@ public final class ParserFactory {
 
     }
 
-    public static Parser getDefaultJSONParser() {
+    public synchronized static Parser getDefaultJSONParser() {
         if (parser == null) {
             parser = new JSONParser();
         }

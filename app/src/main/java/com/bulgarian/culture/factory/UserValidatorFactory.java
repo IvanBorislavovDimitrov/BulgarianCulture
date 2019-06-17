@@ -10,7 +10,7 @@ public final class UserValidatorFactory {
 
     }
 
-    public static UserValidator getDefaultValidator() {
+    public synchronized static UserValidator getDefaultValidator() {
         if (userValidator == null) {
             userValidator = new UserValidator();
         }

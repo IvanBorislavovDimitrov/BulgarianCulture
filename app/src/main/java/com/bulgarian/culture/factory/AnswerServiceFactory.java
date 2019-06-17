@@ -12,7 +12,7 @@ public final class AnswerServiceFactory {
 
     }
 
-    public static AnswerService getDefaultAnswerService(DatabaseHelper databaseHelper) {
+    public synchronized static AnswerService getDefaultAnswerService(DatabaseHelper databaseHelper) {
         if (answerService == null) {
             answerService = new DefaultAnswerService(databaseHelper);
         }

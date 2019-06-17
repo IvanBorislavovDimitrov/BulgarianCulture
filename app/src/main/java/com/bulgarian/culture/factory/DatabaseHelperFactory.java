@@ -12,7 +12,7 @@ public final class DatabaseHelperFactory {
 
     }
 
-    public static DatabaseHelper getDatabaseHelper(Context context) {
+    public synchronized static DatabaseHelper getDatabaseHelper(Context context) {
         return new DatabaseHelper(context);
     }
 }

@@ -1,7 +1,10 @@
 package com.bulgarian.culture.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -13,6 +16,7 @@ import com.bulgarian.culture.factory.QuestionServiceFactory;
 import com.bulgarian.culture.fragrment.QuestionsFragment;
 import com.bulgarian.culture.fragrment.SectionsStatePagerAdapter;
 import com.bulgarian.culture.model.dto.QuestionViewModel;
+import com.bulgarian.culture.model.web.Main;
 import com.bulgarian.culture.service.api.AnswerService;
 import com.bulgarian.culture.service.api.QuestionService;
 
@@ -23,8 +27,12 @@ public class HistoryActivity extends AppCompatActivity {
     private QuestionService questionService;
     private AnswerService answerService;
     private SectionsStatePagerAdapter sectionsStatePagerAdapter;
+    private SectionsStatePagerAdapter adapter;
     private ViewPager viewPager;
     private int currentQuestionNumber = 0;
+    private int correctAnsweredQuestions = 0;
+    private int incorrectAnsweredQuestions = 0;
+    private int totalAnsweredQuestions = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +51,19 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void showQuestion() {
-        List<QuestionViewModel> questionViewModels = questionService.getRandomQuestion();
         sectionsStatePagerAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.container);
-        SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
+        adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
+        fetchNewQuestions();
+        viewPager.setAdapter(adapter);
+    }
+
+    public void fetchNewQuestions() {
+        List<QuestionViewModel> questionViewModels = questionService.getRandomQuestions();
+        adapter.clearList();
         for (QuestionViewModel questionViewModel : questionViewModels) {
             adapter.addFragment(new QuestionsFragment(questionViewModel));
         }
-        viewPager.setAdapter(adapter);
     }
 
     public void setViewPager(int fragmentNumber) {
@@ -63,5 +76,70 @@ public class HistoryActivity extends AppCompatActivity {
 
     public void setCurrentQuestionNumber(int currentQuestionNumber) {
         this.currentQuestionNumber = currentQuestionNumber;
+    }
+
+    public int getCorrectAnsweredQuestions() {
+        return correctAnsweredQuestions;
+    }
+
+    public void setCorrectAnsweredQuestions(int correctAnsweredQuestions) {
+        this.correctAnsweredQuestions = correctAnsweredQuestions;
+    }
+
+    public int getIncorrectAnsweredQuestions() {
+        return incorrectAnsweredQuestions;
+    }
+
+    public void setIncorrectAnsweredQuestions(int incorrectAnsweredQuestions) {
+        this.incorrectAnsweredQuestions = incorrectAnsweredQuestions;
+    }
+
+    public int getTotalAnsweredQuestions() {
+        return totalAnsweredQuestions;
+    }
+
+    public void setTotalAnsweredQuestions(int totalAnsweredQuestions) {
+        this.totalAnsweredQuestions = totalAnsweredQuestions;
+    }
+
+    public void finishWithSuccess() {
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    startActivity(new Intent(this, HistoryActivity.class));
+                    finish();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    startActivity(new Intent(this, Main.class));
+                    finish();
+                    break;
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You won! New Game?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener)
+                .show();
+    }
+
+    public void finishWithLoss() {
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    startActivity(new Intent(this, HistoryActivity.class));
+                    finish();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                    break;
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You lost! New Game?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener)
+                .show();
     }
 }

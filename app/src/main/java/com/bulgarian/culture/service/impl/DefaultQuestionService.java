@@ -29,8 +29,7 @@ public class DefaultQuestionService implements QuestionService {
         modelMapper = new ModelMapper();
     }
 
-    @Override
-    public List<QuestionViewModel> getRandomQuestion() {
+    public List<QuestionViewModel> getRandomQuestions() {
         int randomQuestionIndex = getRandomQuestionIndex();
         List<Question> randomQuestions = questionRepository.getRandomQuestions(randomQuestionIndex, QUESTIONS_BUFFER_LENGTH);
         return randomQuestions.stream()
@@ -39,24 +38,20 @@ public class DefaultQuestionService implements QuestionService {
     }
 
     private int getRandomQuestionIndex() {
-        int index = RandomGenerator.generateRandomInt(0, TOTAL_QUESTIONS - QUESTIONS_BUFFER_LENGTH);
-        while (usedQuestionIndexes.contains(index)) {
-            index = RandomGenerator.generateRandomInt(0, TOTAL_QUESTIONS - QUESTIONS_BUFFER_LENGTH);
+        if (usedQuestionIndexes.size() == TOTAL_QUESTIONS) {
+            throw new IllegalArgumentException("All questions used");
         }
-        usedQuestionIndexes.add(index);
+        int index = RandomGenerator.generateRandomInt(1, TOTAL_QUESTIONS - QUESTIONS_BUFFER_LENGTH + 1);
+        while (usedQuestionIndexes.contains(index)) {
+            index = RandomGenerator.generateRandomInt(1, TOTAL_QUESTIONS - QUESTIONS_BUFFER_LENGTH + 1);
+        }
+        for (int i = 0; i < QUESTIONS_BUFFER_LENGTH; i++) {
+            usedQuestionIndexes.add(index + i);
+        }
         return index;
     }
 
     public List<Question> getQuestionsWithAnswers() {
         return questionRepository.getQuestions();
-    }
-
-    public List<Question> getRandomQuestions() {
-        int rand = RandomGenerator.generateRandomInt(1, questionRepository.getQuestionsCount());
-        List<Question> randomQuestions = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            randomQuestions.add(questionRepository.getQuestionById(rand));
-        }
-        return randomQuestions;
     }
 }

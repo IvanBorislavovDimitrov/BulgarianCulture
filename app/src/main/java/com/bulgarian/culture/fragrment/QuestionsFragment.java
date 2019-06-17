@@ -1,7 +1,6 @@
 package com.bulgarian.culture.fragrment;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,16 +44,24 @@ public class QuestionsFragment extends Fragment {
         Button correctAnswerButton = getCorrectAnswerButton(firstQuestionButton, secondQuestionButton, thirdQuestionButton, fourthQuestionButton, questionViewModel.getTrueAnswer());
 
         correctAnswerButton.setOnClickListener(l -> {
-            AlertDialog alertDialog = new AlertDialog.Builder(((HistoryActivity) getActivity()))
+            new AlertDialog.Builder(((HistoryActivity) getActivity()))
                     .setTitle("Correct")
                     .setMessage("Congratulations, let's move on")
                     .show();
+            ((HistoryActivity) getActivity())
+                    .setCorrectAnsweredQuestions(((HistoryActivity) getActivity()).getCorrectAnsweredQuestions() + 1);
             ((HistoryActivity) getActivity()).setCurrentQuestionNumber(((HistoryActivity) getActivity()).getCurrentQuestionNumber() + 1);
-            if (((HistoryActivity) getActivity()).getCurrentQuestionNumber() >= Constants.QUESTIONS_BUFFER_LENGTH) {
-                alertDialog.cancel();
-                startActivity(new Intent(getActivity(), HistoryActivity.class));
-                ((HistoryActivity) getActivity()).finish();
+            if (((HistoryActivity) getActivity()).getCorrectAnsweredQuestions() == Constants.TOTAL_QUESTIONS) {
+                ((HistoryActivity) getActivity()).finishWithSuccess();
                 return;
+            }
+            if (((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() >= Constants.MAX_INCORRECT_QUESTIONS) {
+                ((HistoryActivity) getActivity()).finishWithLoss();
+                return;
+            }
+            if (((HistoryActivity) getActivity()).getCurrentQuestionNumber() >= Constants.QUESTIONS_BUFFER_LENGTH) {
+                ((HistoryActivity) getActivity()).fetchNewQuestions();
+                ((HistoryActivity) getActivity()).setCurrentQuestionNumber(0);
             }
             ((HistoryActivity) getActivity()).setViewPager(((HistoryActivity) getActivity()).getCurrentQuestionNumber());
         });
@@ -64,6 +71,11 @@ public class QuestionsFragment extends Fragment {
                         .setTitle("Incorrect")
                         .setMessage("Try again")
                         .show();
+                ((HistoryActivity) getActivity())
+                        .setIncorrectAnsweredQuestions(((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() + 1);
+                if (((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() >= Constants.MAX_INCORRECT_QUESTIONS) {
+                    ((HistoryActivity) getActivity()).finishWithLoss();
+                }
             });
         }
         if (secondQuestionButton != correctAnswerButton) {
@@ -72,6 +84,11 @@ public class QuestionsFragment extends Fragment {
                         .setTitle("Incorrect")
                         .setMessage("Try again")
                         .show();
+                ((HistoryActivity) getActivity())
+                        .setIncorrectAnsweredQuestions(((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() + 1);
+                if (((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() >= Constants.MAX_INCORRECT_QUESTIONS) {
+                    ((HistoryActivity) getActivity()).finishWithLoss();
+                }
             });
         }
         if (thirdQuestionButton != correctAnswerButton) {
@@ -80,7 +97,13 @@ public class QuestionsFragment extends Fragment {
                         .setTitle("Incorrect")
                         .setMessage("Try again")
                         .show();
+                ((HistoryActivity) getActivity())
+                        .setIncorrectAnsweredQuestions(((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() + 1);
             });
+            if (((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() >= Constants.MAX_INCORRECT_QUESTIONS) {
+                ((HistoryActivity) getActivity()).finishWithLoss();
+                return view;
+            }
         }
         if (fourthQuestionButton != correctAnswerButton) {
             fourthQuestionButton.setOnClickListener(l -> {
@@ -88,6 +111,11 @@ public class QuestionsFragment extends Fragment {
                         .setTitle("Incorrect")
                         .setMessage("Try again")
                         .show();
+                ((HistoryActivity) getActivity())
+                        .setIncorrectAnsweredQuestions(((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() + 1);
+                if (((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() >= Constants.MAX_INCORRECT_QUESTIONS) {
+                    ((HistoryActivity) getActivity()).finishWithLoss();
+                }
             });
         }
         return view;

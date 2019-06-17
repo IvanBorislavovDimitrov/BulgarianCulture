@@ -11,7 +11,7 @@ public final class RestTemplateFactory {
 
     }
 
-    public static RestTemplate getDefaultRestTemplate() {
+    public synchronized static RestTemplate getDefaultRestTemplate() {
         if (restTemplate == null) {
             restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());

@@ -12,7 +12,7 @@ public final class QuestionServiceFactory {
 
     }
 
-    public static QuestionService getDefaultQuestionService(DatabaseHelper questionTableHelper) {
+    public synchronized static QuestionService getDefaultQuestionService(DatabaseHelper questionTableHelper) {
         if (questionService == null) {
             questionService = new DefaultQuestionService(questionTableHelper);
         }
