@@ -231,12 +231,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Question getQuestionById(int id) {
-        SQLiteDatabase db = getReadableDatabase();
-        Question question;
-        try (Cursor cr = db.rawQuery("SELECT * FROM " + QUESTIONS_TABLE_NAME + " WHERE " + QUESTION_ID_COL + " = ?", new String[]{String.valueOf(id)})) {
-            question = new Question(cr.getString(1), new Answer(cr.getString(21)));
+        try (Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + QUESTIONS_TABLE_NAME + " AS q JOIN " + ANSWERS_TABLE_NAME + " AS a ON q." + ID_COL + " = a." + QUESTION_ID_COL + " WHERE q." + ID_COL + " =" + id, null)) {
+            cursor.moveToNext();
+            Question question = new Question();
+            question.setId(cursor.getInt(cursor.getColumnIndex(ID_COL)));
+            question.setText(cursor.getString(cursor.getColumnIndex(QUESTIONS_TEXT_COL)));
+            Answer trueAnswer = new Answer();
+            trueAnswer.setText(cursor.getString(cursor.getColumnIndex(VALID_ANSWER_COL)));
+            question.setTrueAnswer(trueAnswer);
+            Answer answer = new Answer();
+            answer.setText(cursor.getString(cursor.getColumnIndex(ANSWERS_TEXT_COL)));
+            question.getAnswers().add(answer);
+            for (int i = 2; i < QUESTIONS_BUFFER_LENGTH; i++) {
+                if (!cursor.moveToNext()) {
+                    return question;
+                }
+                answer = new Answer();
+                answer.setText(cursor.getString(cursor.getColumnIndex(ANSWERS_TEXT_COL)));
+                question.getAnswers().add(answer);
+            }
+            return question;
         }
-        return question;
     }
 
     public List<String> findQuestionsNames() {
@@ -262,7 +277,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Answer answer = new Answer();
                 answer.setText(cursor.getString(cursor.getColumnIndex(ANSWERS_TEXT_COL)));
                 question.getAnswers().add(answer);
-                for (int i = 1; i < QUESTIONS_BUFFER_LENGTH; i++) {
+                for (int i = 2; i < QUESTIONS_BUFFER_LENGTH; i++) {
                     if (!cursor.moveToNext()) {
                         return questions;
                     }

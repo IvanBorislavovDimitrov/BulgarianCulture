@@ -16,7 +16,6 @@ import com.bulgarian.culture.factory.QuestionServiceFactory;
 import com.bulgarian.culture.fragrment.QuestionsFragment;
 import com.bulgarian.culture.fragrment.SectionsStatePagerAdapter;
 import com.bulgarian.culture.model.dto.QuestionViewModel;
-import com.bulgarian.culture.model.web.Main;
 import com.bulgarian.culture.service.api.AnswerService;
 import com.bulgarian.culture.service.api.QuestionService;
 
@@ -39,6 +38,7 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         initDependencies();
+        questionService.clearQuestionsUsed();
         showQuestion();
 
     }
@@ -104,14 +104,13 @@ public class HistoryActivity extends AppCompatActivity {
 
     public void finishWithSuccess() {
         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-            switch (which){
+            switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
                     startActivity(new Intent(this, HistoryActivity.class));
                     finish();
                     break;
-
                 case DialogInterface.BUTTON_NEGATIVE:
-                    startActivity(new Intent(this, Main.class));
+                    startActivity(new Intent(this, MainActivity.class));
                     finish();
                     break;
             }
@@ -125,7 +124,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     public void finishWithLoss() {
         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-            switch (which){
+            switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
                     startActivity(new Intent(this, HistoryActivity.class));
                     finish();

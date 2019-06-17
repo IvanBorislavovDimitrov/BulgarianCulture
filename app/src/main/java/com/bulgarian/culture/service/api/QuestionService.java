@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface QuestionService {
     List<QuestionViewModel> getRandomQuestions();
+
+    void clearQuestionsUsed();
 }

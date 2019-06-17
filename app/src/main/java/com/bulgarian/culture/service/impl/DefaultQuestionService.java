@@ -22,15 +22,33 @@ public class DefaultQuestionService implements QuestionService {
     private final QuestionRepository questionRepository;
     private List<Integer> usedQuestionIndexes;
     private final ModelMapper modelMapper;
+    private List<String> usedQuestionsTexts;
 
     public DefaultQuestionService(DatabaseHelper questionTableHelper) {
         questionRepository = new DefaultQuestionRepository(questionTableHelper);
         usedQuestionIndexes = new ArrayList<>();
+        usedQuestionsTexts = new ArrayList<>();
         modelMapper = new ModelMapper();
     }
 
     public List<QuestionViewModel> getRandomQuestions() {
         int randomQuestionIndex = getRandomQuestionIndex();
+        if (randomQuestionIndex == -1) {
+            List<Question> questions = new ArrayList<>();
+            for (int i = 1; i <= TOTAL_QUESTIONS; i++) {
+                if (usedQuestionIndexes.contains(i)) {
+                    continue;
+                }
+                usedQuestionIndexes.add(i);
+                Question question = questionRepository.getQuestionById(i);
+                questions.add(question);
+                if (questions.size() == QUESTIONS_BUFFER_LENGTH) {
+                    return questions.stream()
+                            .map(q -> modelMapper.map(q, QuestionViewModel.class))
+                            .collect(Collectors.toList());
+                }
+            }
+        }
         List<Question> randomQuestions = questionRepository.getRandomQuestions(randomQuestionIndex, QUESTIONS_BUFFER_LENGTH);
         return randomQuestions.stream()
                 .map(question -> modelMapper.map(question, QuestionViewModel.class))
@@ -42,13 +60,41 @@ public class DefaultQuestionService implements QuestionService {
             throw new IllegalArgumentException("All questions used");
         }
         int index = RandomGenerator.generateRandomInt(1, TOTAL_QUESTIONS - QUESTIONS_BUFFER_LENGTH + 1);
-        while (usedQuestionIndexes.contains(index)) {
-            index = RandomGenerator.generateRandomInt(1, TOTAL_QUESTIONS - QUESTIONS_BUFFER_LENGTH + 1);
+        boolean isUsed = false;
+        boolean seq = false;
+        for (int i = 0; i < QUESTIONS_BUFFER_LENGTH; i++) {
+            if (usedQuestionIndexes.contains(index + i)) {
+                isUsed = true;
+            }
         }
+        int cnt = 0;
+        while (isUsed) {
+            isUsed = false;
+            index = RandomGenerator.generateRandomInt(1, TOTAL_QUESTIONS - QUESTIONS_BUFFER_LENGTH + 1);
+            for (int i = 0; i < QUESTIONS_BUFFER_LENGTH; i++) {
+                if (usedQuestionIndexes.contains(index + i)) {
+                    isUsed = true;
+                }
+            }
+            cnt++;
+            if (cnt == TOTAL_QUESTIONS) {
+                seq = true;
+                break;
+            }
+        }
+        if (seq) {
+            return -1;
+        }
+
         for (int i = 0; i < QUESTIONS_BUFFER_LENGTH; i++) {
             usedQuestionIndexes.add(index + i);
         }
         return index;
+    }
+
+    @Override
+    public void clearQuestionsUsed() {
+        usedQuestionIndexes.clear();
     }
 
     public List<Question> getQuestionsWithAnswers() {
