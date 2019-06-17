@@ -24,6 +24,7 @@ public class HistoryActivity extends AppCompatActivity {
     private AnswerService answerService;
     private SectionsStatePagerAdapter sectionsStatePagerAdapter;
     private ViewPager viewPager;
+    private int currentQuestionNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +46,22 @@ public class HistoryActivity extends AppCompatActivity {
         List<QuestionViewModel> questionViewModels = questionService.getRandomQuestion();
         sectionsStatePagerAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.container);
-        for (QuestionViewModel questionViewModel : questionViewModels) {
-            setupViewPage(questionViewModel);
-            System.out.println("E");
-        }
-    }
-
-    private void setupViewPage(QuestionViewModel questionViewModels) {
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new QuestionsFragment(questionViewModels));
+        for (QuestionViewModel questionViewModel : questionViewModels) {
+            adapter.addFragment(new QuestionsFragment(questionViewModel));
+        }
         viewPager.setAdapter(adapter);
     }
 
     public void setViewPager(int fragmentNumber) {
         viewPager.setCurrentItem(fragmentNumber);
+    }
+
+    public int getCurrentQuestionNumber() {
+        return currentQuestionNumber;
+    }
+
+    public void setCurrentQuestionNumber(int currentQuestionNumber) {
+        this.currentQuestionNumber = currentQuestionNumber;
     }
 }

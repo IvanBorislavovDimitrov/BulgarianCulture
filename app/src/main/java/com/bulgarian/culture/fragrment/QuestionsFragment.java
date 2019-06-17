@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bulgarian.culture.R;
 import com.bulgarian.culture.activity.HistoryActivity;
+import com.bulgarian.culture.constants.Constants;
 import com.bulgarian.culture.model.dto.QuestionViewModel;
 
 public class QuestionsFragment extends Fragment {
@@ -28,8 +29,8 @@ public class QuestionsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ((HistoryActivity) getActivity()).setCurrentQuestionNumber(((HistoryActivity) getActivity()).getCurrentQuestionNumber());
         View view = inflater.inflate(R.layout.questions_fragment_layout, container, false);
-        ((HistoryActivity) getActivity()).setViewPager(0);
         TextView questionTextView = view.findViewById(R.id.questionName);
         Button firstQuestionButton = view.findViewById(R.id.firstQuestionButton);
         Button secondQuestionButton = view.findViewById(R.id.secondQuestionButton);
@@ -44,12 +45,18 @@ public class QuestionsFragment extends Fragment {
         Button correctAnswerButton = getCorrectAnswerButton(firstQuestionButton, secondQuestionButton, thirdQuestionButton, fourthQuestionButton, questionViewModel.getTrueAnswer());
 
         correctAnswerButton.setOnClickListener(l -> {
-            new AlertDialog.Builder(((HistoryActivity) getActivity()))
+            AlertDialog alertDialog = new AlertDialog.Builder(((HistoryActivity) getActivity()))
                     .setTitle("Correct")
                     .setMessage("Congratulations, let's move on")
                     .show();
-            Intent intent = new Intent(getActivity(), HistoryActivity.class);
-            startActivity(intent);
+            ((HistoryActivity) getActivity()).setCurrentQuestionNumber(((HistoryActivity) getActivity()).getCurrentQuestionNumber() + 1);
+            if (((HistoryActivity) getActivity()).getCurrentQuestionNumber() >= Constants.QUESTIONS_BUFFER_LENGTH) {
+                alertDialog.cancel();
+                startActivity(new Intent(getActivity(), HistoryActivity.class));
+                ((HistoryActivity) getActivity()).finish();
+                return;
+            }
+            ((HistoryActivity) getActivity()).setViewPager(((HistoryActivity) getActivity()).getCurrentQuestionNumber());
         });
         if (firstQuestionButton != correctAnswerButton) {
             firstQuestionButton.setOnClickListener(l -> {
