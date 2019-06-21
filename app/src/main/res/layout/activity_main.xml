@@ -9,6 +9,20 @@
     android:backgroundTintMode="multiply"
     tools:context=".activity.RegisterActivity">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="490dp"
+        android:layout_height="773dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main" />
+
     <Button
         android:id="@+id/register"
         android:layout_width="wrap_content"
@@ -30,6 +44,7 @@
         android:layout_marginTop="92dp"
         android:layout_marginEnd="8dp"
         android:text="Опознай България"
+        android:textColor="@android:color/white"
         android:textSize="45sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +74,9 @@
         android:layout_marginTop="52dp"
         android:layout_marginEnd="8dp"
         android:text="Започвайте играта!"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@android:color/white"
+        android:textColorHint="@android:color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
