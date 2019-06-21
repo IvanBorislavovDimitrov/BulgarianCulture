@@ -60,6 +60,7 @@ public class QuestionsFragment extends Fragment {
                     .setMessage("Congratulations, moving on")
                     .show();
             ((HistoryActivity) getActivity()).setViewPager(((HistoryActivity) getActivity()).getCurrentQuestionNumber());
+            ((HistoryActivity) getActivity()).updateCorrectQuestions(((HistoryActivity) getActivity()).getCorrectAnsweredQuestions());
         });
         if (firstQuestionButton != correctAnswerButton) {
             firstQuestionButton.setOnClickListener(l -> {
@@ -72,6 +73,7 @@ public class QuestionsFragment extends Fragment {
                 if (((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() >= Constants.MAX_INCORRECT_QUESTIONS) {
                     ((HistoryActivity) getActivity()).finishWithLoss();
                 }
+                ((HistoryActivity) getActivity()).updateIncorrectQuestions(((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions());
             });
         }
         if (secondQuestionButton != correctAnswerButton) {
@@ -85,6 +87,7 @@ public class QuestionsFragment extends Fragment {
                 if (((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() >= Constants.MAX_INCORRECT_QUESTIONS) {
                     ((HistoryActivity) getActivity()).finishWithLoss();
                 }
+                ((HistoryActivity) getActivity()).updateIncorrectQuestions(((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions());
             });
         }
         if (thirdQuestionButton != correctAnswerButton) {
@@ -98,6 +101,7 @@ public class QuestionsFragment extends Fragment {
                 if (((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() >= Constants.MAX_INCORRECT_QUESTIONS) {
                     ((HistoryActivity) getActivity()).finishWithLoss();
                 }
+                ((HistoryActivity) getActivity()).updateIncorrectQuestions(((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions());
             });
         }
         if (fourthQuestionButton != correctAnswerButton) {
@@ -111,6 +115,7 @@ public class QuestionsFragment extends Fragment {
                 if (((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions() >= Constants.MAX_INCORRECT_QUESTIONS) {
                     ((HistoryActivity) getActivity()).finishWithLoss();
                 }
+                ((HistoryActivity) getActivity()).updateIncorrectQuestions(((HistoryActivity) getActivity()).getIncorrectAnsweredQuestions());
             });
         }
         return view;

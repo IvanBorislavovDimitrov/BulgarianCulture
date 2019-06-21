@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="52dp"
-        android:text="Temperature: "
+        android:text="Температура: "
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/townMessageTextViewWeatherActivity" />
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="44dp"
-        android:text="Pressure: "
+        android:text="Налягане: "
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/temperatureMessageTextViewWeatherActivity" />
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="44dp"
-        android:text="Humidity: "
+        android:text="Влажност: "
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressureMessageTextViewWeatherActivity" />
@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="44dp"
-        android:text="Max Temp:"
+        android:text="Максимална:"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/humidityMessageTextViewWeatherActivity" />
@@ -126,7 +126,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="44dp"
         android:layout_marginBottom="8dp"
-        android:text="Min Temp:"
+        android:text="Минимална:"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

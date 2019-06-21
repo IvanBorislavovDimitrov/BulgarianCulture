@@ -86,7 +86,7 @@ public class WeatherLocationListener implements LocationListener {
 
     private void updateTownMessage(String townName) {
         TextView townMessage = weatherActivity.findViewById(R.id.townMessageTextViewWeatherActivity);
-        townMessage.setText("Town: " + townName);
+        townMessage.setText("Град: " + townName);
     }
 
     private void updateTownPressure(WeatherWrapper weatherWrapper) {

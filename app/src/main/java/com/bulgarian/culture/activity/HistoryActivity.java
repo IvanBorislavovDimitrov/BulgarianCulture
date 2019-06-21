@@ -3,12 +3,14 @@ package com.bulgarian.culture.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bulgarian.culture.R;
+import com.bulgarian.culture.constants.Constants;
 import com.bulgarian.culture.database.DatabaseHelper;
 import com.bulgarian.culture.factory.AnswerServiceFactory;
 import com.bulgarian.culture.factory.DatabaseHelperFactory;
@@ -40,7 +42,10 @@ public class HistoryActivity extends AppCompatActivity {
         initDependencies();
         questionService.clearQuestionsUsed();
         showQuestion();
-
+        TextView correctAnswers = findViewById(R.id.correctAnswersCount);
+        correctAnswers.setText(correctAnswers.getText() + ": " + 0 + "/" + Constants.TOTAL_QUESTIONS);
+        TextView incorrectAnswers = findViewById(R.id.incorrectAnswersCount);
+        incorrectAnswers.setText(incorrectAnswers.getText() + ": " + 0 + "/" + Constants.MAX_INCORRECT_QUESTIONS);
     }
 
     // The order of initialization must not be changed (hack...)
@@ -140,5 +145,17 @@ public class HistoryActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener)
                 .show();
+    }
+
+    public void updateCorrectQuestions(int currentCount) {
+        TextView correctAnswers = findViewById(R.id.correctAnswersCount);
+        String info = correctAnswers.getText().toString().split(": ")[0];
+        correctAnswers.setText(info + ": " + currentCount + "/" + Constants.TOTAL_QUESTIONS);
+    }
+
+    public void updateIncorrectQuestions(int currentCount) {
+        TextView incorrectAnswers = findViewById(R.id.incorrectAnswersCount);
+        String info = incorrectAnswers.getText().toString().split(": ")[0];
+        incorrectAnswers.setText(info + ": " + currentCount + "/" + Constants.MAX_INCORRECT_QUESTIONS);
     }
 }
