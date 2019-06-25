@@ -11,5 +11,5 @@ public class Constants {
     public static final int NON_SUCCESSFUL_INSERT = -1;
     public static final int QUESTIONS_BUFFER_LENGTH = 5;
     public static final int TOTAL_QUESTIONS = 30;
-    public static final int MAX_INCORRECT_QUESTIONS = 500;
+    public static final int MAX_INCORRECT_QUESTIONS = 30;
 }
